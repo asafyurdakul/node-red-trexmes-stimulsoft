@@ -1,0 +1,192 @@
+<!--
+
+Copyright 2023 Asaf Yurdakul and Mert Software & Electronic A.Ş, Bursa Turkiye.
+
+Licensed under the GNU General Public License, Version 3.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.gnu.org/licenses/gpl-3.0.html
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<style>
+    .stimulsoft-render-form-row>label {
+        width: 125px !important;
+    }
+</style>
+
+<script type="text/html" data-template-name="stimulsoft-render">
+
+    
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+	
+    <div class="form-row" style="margin-top:12px; margin-bottom:0 ">
+        <label style="width: 100% !important;"><i class="fa fa-database"></i> <span data-i18n="node.input.mssql"></span></label>
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i> <span data-i18n="node.input.server"></span></label>
+        <input type="text" id="node-input-server" data-i18n="[placeholder]node.input.server">
+	</div>
+	
+	<div class="form-row">
+        <label for="node-input-dbname"><i class="fa fa-tag"></i> <span data-i18n="node.input.dbname"></span></label>
+        <input type="text" id="node-input-dbname" data-i18n="[placeholder]node.input.dbname">
+	</div>
+	
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-user"></i> <span data-i18n="node.input.username"></span></label>
+        <input type="text" id="node-input-username" data-i18n="[placeholder]node.input.username">
+	</div>
+
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-key"></i> <span data-i18n="node.input.password"></span></label>
+        <input type="text" id="node-input-password" data-i18n="[placeholder]node.input.password">
+	</div>
+
+    <div class="form-row" style="margin-top:12px; margin-bottom:0 ">
+        <label style="width: 100% !important;"><i class="fa fa-file"></i> <span data-i18n="node.input.filetypeheader"></span></label>
+    </div>
+
+    <div class="form-row stimulsoft-render-form-row">
+        <label for="node-input-modefiletype"><i class="fa fa-list-ul"></i> <span data-i18n="node.input.filetype"></span></label>
+        <select id="node-input-modefiletype" style="width: 70%">
+            <option value="0" data-i18n="node.input.filetypeoptions.html"></option>
+            <option value="1" data-i18n="node.input.filetypeoptions.pdf"></option>
+        </select>
+    </div>
+
+</script>
+
+<script type="text/html" data-help-name="stimulsoft-render">
+    <p>Trex Mes Stimulsoft Render </p>
+	<a href="https://www.mertyazilim.com.tr" target="_blank">www.mertyazilim.com.tr</a>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('stimulsoft-render',{
+        category: 'trexmes',
+        defaults: {
+            name: {name:""},
+            server: {value:""},
+            dbname: {value:""},
+            username: {value:""},
+            password: {value:""},
+            modefiletype: {value:0}
+        },
+        color:"#3FADB5",
+        inputs:1,
+        outputs:1,
+        icon: "trex.png",
+        label: function() {            
+            return this.name;
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        },
+		oneditsave: function() {
+			
+          
+        }		
+    });	
+
+
+    let stimulSoft_RenderNodeInfo = function (id, data) {
+        
+        let $chart = document.getElementById("stimulsoft-reports-chart-" + id);
+
+        if ($chart) {
+            let $text = document.getElementById(`stimulsoft-reports-text-${id}`);
+            $text.textContent = ''
+
+            var
+                lines = data.split('\n'),
+                tn,
+                ts
+
+            
+            lines.forEach(function (value, index) {
+                let countSpace = value.length - value.trim().length
+                tn = document.createTextNode(value);
+                ts = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+                ts.setAttribute('dy', (index) ? "1.2em" : 0);
+                ts.setAttribute('x', countSpace * 10);
+                ts.setAttribute('text-anchor', 'start');
+                ts.setAttribute('fill', '#555');
+                //if (allstatus)
+                //    ts.setAttribute('stroke', 'green');
+                //else
+                //    ts.setAttribute('stroke', 'red');
+                ts.setAttribute('font-size', `12`)
+                ts.appendChild(tn);
+                $text.append(ts);
+            });
+            
+
+        } else {
+
+            const $container = document.getElementById(id)
+            if (!$container) { return }
+
+            const text = document.createElementNS("http://www.w3.org/2000/svg", 'text')
+            text.setAttribute('id', `stimulsoft-reports-text-${id}`)
+            text.setAttribute('x', `0`)
+            text.setAttribute('y', `50`)
+            text.setAttribute('text-anchor', `start`)
+            $container.insertBefore(text, $container.lastChild.nextSibling);
+            // Create group
+            const group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            group.setAttribute('id', `stimulsoft-reports-chart-${id}`);
+            group.setAttribute('innerHTML', `stimulsoft-reports-chart-${id}`);
+            $container.insertBefore(group, $container.lastChild.nextSibling);
+            $chart = $container
+
+            let $text = document.getElementById(`stimulsoft-reports-text-${id}`);
+            $text.textContent = ''
+
+            var
+                lines = data.split('\n'),
+                tn,
+                ts
+            
+            lines.forEach(function (value, index) {
+                let countSpace = value.length - value.trim().length
+                tn = document.createTextNode(value);
+                ts = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+                ts.setAttribute('dy', (index) ? "1.2em" : 0);
+                ts.setAttribute('x', countSpace * 10);
+                ts.setAttribute('text-anchor', 'start');
+                ts.setAttribute('fill', '#555');
+                //if (allstatus)
+                //    ts.setAttribute('stroke', 'green');
+                //else
+                //    ts.setAttribute('stroke', 'red');
+                
+                ts.setAttribute('font-size', `12`)
+                ts.appendChild(tn);
+                $text.append(ts);
+            });
+            
+        }
+        
+    }
+
+    
+    RED.comms.subscribe('stimulsoft-reports-message', function (event, data) {
+        if (data.hasOwnProperty("message")) {
+            //console.log("render :"+data.data); 
+            stimulSoft_RenderNodeInfo(data.id, data.message);
+        }
+    })
+	
+</script>

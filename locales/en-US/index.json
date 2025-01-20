@@ -1,0 +1,17 @@
+{
+    "node":{
+        "input": {
+            "server": "Server Name or IP",
+            "dbname": "Database",
+            "username": "Username",
+            "password": "Password",
+            "mssql": "MSSQL server connection settings",
+            "filetypeheader": "Export File Type",
+            "filetype": "File Type",
+            "filetypeoptions": {
+                "html": "Html",
+                "pdf": "Pdf"
+            }
+        }
+    }
+}

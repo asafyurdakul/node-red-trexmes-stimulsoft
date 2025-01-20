@@ -1,0 +1,33 @@
+{
+  "name": "node-red-trexmes-stimulsoft",
+  "version": "1.0.0",
+  "description": "Stimulsoft Nodered node that renders stimulsoft reports using MSSql connection.",
+  "main": "index.js",
+  "keywords": [
+    "node-red",
+    "TrexMes",
+    "Stimulsoft"
+  ],
+  "homepage": "https://github.com/asafyurdakul/node-red-trexmes-stimulsoft-render",
+  "node-red": {
+    "nodes": {
+      "stimulsoft-render": "index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "stimulsoft-reports-js": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asafyurdakul/node-red-trexmes-stimulsoft-render.git"
+  },
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Asaf Yurdakul",
+  "license": "GPL-3.0-only"
+}
