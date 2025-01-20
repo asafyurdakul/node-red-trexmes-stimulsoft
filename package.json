@@ -1,6 +1,6 @@
 {
   "name": "node-red-trexmes-stimulsoft",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stimulsoft Nodered node that renders stimulsoft reports using MSSql connection.",
   "main": "index.js",
   "keywords": [
