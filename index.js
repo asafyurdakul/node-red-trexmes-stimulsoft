@@ -114,7 +114,7 @@ module.exports = function (RED) {
             id: node.id,
             message: produceStringMessage(variables)
         };
-        node.warn(d);
+        //node.warn(d);
         try {
             RED.comms.publish("stimulsoft-reports-message", d);
         }
